@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Proyecto</string>
+    <string name="btn_crearHorario">Crear nuevo horario</string>
+    <string name="btn_consultarHorario">Consultar horario</string>
+    <string name="txt_IngresoCarrera">Carrera</string>
+    <string name="txt_IngresoSemestre">Semestre</string>
+</resources>
