@@ -4,4 +4,5 @@
     <string name="btn_consultarHorario">Consultar horario</string>
     <string name="txt_IngresoCarrera">Carrera</string>
     <string name="txt_IngresoSemestre">Semestre</string>
+    <string name="btn_Continuar">Continuar</string>
 </resources>

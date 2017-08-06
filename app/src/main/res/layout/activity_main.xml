@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/tile"
+    android:orientation="vertical"
     tools:context="com.example.juanpa.proyecto.MainActivity">
 
     <Button
@@ -30,4 +32,6 @@
         app:layout_constraintTop_toBottomOf="@+id/button"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp" />
+
+
 </android.support.constraint.ConstraintLayout>
