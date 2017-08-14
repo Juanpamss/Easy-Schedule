@@ -20,4 +20,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    public void activityConsultarHorario(View view) {
+
+        Intent intent = new Intent(this,ProspectoHorario.class);
+
+        startActivity(intent);
+    }
 }
