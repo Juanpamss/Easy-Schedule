@@ -15,26 +15,26 @@ public class ObjetoCabecera {
 
     public ObjetoCabecera(Materia materia){
 
-        this.header1 = "\n\n" + materia.getNombre() + "\n\n";
+        this.header1 = "\n" + materia.getNombre() + "\n";
         for(int[] hora : materia.getHoras()){
             switch (hora[0]) {
                 case 0:
-                    this.header2 = "\n\n" + hora[1] + " - " + hora[2] + "\n\n";
+                    this.header2 = "" + hora[1] + " - " + hora[2] + "";
                     break;
                 case 1:
-                    this.header3 = "\n\n" + hora[1] + " - " + hora[2] + "\n\n";
+                    this.header3 = "" + hora[1] + " - " + hora[2] + "";
                     break;
                 case 2:
-                    this.header4 = "\n\n" + hora[1] + " - " + hora[2] + "\n\n";
+                    this.header4 = "" + hora[1] + " - " + hora[2] + "";
                     break;
                 case 3:
-                    this.header5 = "\n\n" + hora[1] + " - " + hora[2] + "\n\n";
+                    this.header5 = "" + hora[1] + " - " + hora[2] + "";
                     break;
                 case 4:
-                    this.header6 = "\n\n" + hora[1] + " - " + hora[2] + "\n\n";
+                    this.header6 = "" + hora[1] + " - " + hora[2] + "";
                     break;
                 case 5:
-                    this.header7 = "\n\n" + hora[1] + " - " + hora[2] + "\n\n";
+                    this.header7 = "" + hora[1] + " - " + hora[2] + "";
                     break;
             }
         }

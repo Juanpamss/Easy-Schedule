@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
@@ -15,6 +16,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 public class Calendario extends RelativeLayout {
 
     public final String TAG = "TableMainLayout.java";
@@ -22,12 +25,12 @@ public class Calendario extends RelativeLayout {
     // set the header titles
     String headers[] = {
             "                              ",
-            " Lunes ",
-            " Martes ",
-            " Miercoles ",
-            " Jueves ",
-            " Viernes ",
-            " Sabado "
+            "Lunes",
+            "Martes",
+            "Miercoles",
+            "Jueves",
+            "Viernes",
+            "Sabado"
     };
 
     TableLayout tableA;
@@ -89,6 +92,16 @@ public class Calendario extends RelativeLayout {
 
         this.resizeBodyTableRowHeight();
 
+        //guardar la lista de materias
+        SharedPreferences sharedPrefs = context.getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        Gson gson = new Gson();
+
+        String json = gson.toJson(materias);
+
+        editor.putString("materias", json);
+        editor.commit();
+
     }
 
     // this is just the sample data
@@ -96,7 +109,11 @@ public class Calendario extends RelativeLayout {
 
         List<ObjetoCabecera> sampleObjects = new ArrayList<ObjetoCabecera>();
 
-        for (Materia materia : materias) {
+        Horario horario = new Horario();
+
+        horario.agregarMaterias(materias);
+
+        for (Materia materia : horario.getMateriasAgregadas()) {
             ObjetoCabecera sampleObject = new ObjetoCabecera(materia);
             sampleObjects.add(sampleObject);
         }
@@ -197,6 +214,7 @@ public class Calendario extends RelativeLayout {
         for (int x = 0; x < (headerFieldCount - 1); x++) {
             TextView textView = this.headerTextView(this.headers[x + 1]);
             textView.setLayoutParams(params);
+            textView.setWidth(200);
             componentBTableRow.addView(textView);
         }
 

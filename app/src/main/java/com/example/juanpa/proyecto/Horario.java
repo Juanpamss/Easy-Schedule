@@ -47,7 +47,13 @@ public class Horario {
 
 	public boolean agregarMaterias(ArrayList<Materia> materias) { // implementa el backtracking recursivo
 		for (Materia materia : materias) { // intenta agregar las materias una por una
-			if (!materiasAgregadas.contains(materia)) {//si la materia aun no fue agregada
+			boolean agregada = false;
+			for (Materia mat : materiasAgregadas) {
+				if (mat.getNombre().equals(materia.getNombre())) {
+					agregada = true;
+				}
+			}
+			if (!agregada) {//si la materia aun no fue agregada
 				Horario horario = new Horario(this);
 				if (horario.agregar(materia)) { // la nueva materia no se cruza
 					ArrayList<Materia> materiasRestantes = new ArrayList<Materia>(materias);

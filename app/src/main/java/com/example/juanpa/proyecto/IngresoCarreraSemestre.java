@@ -1,6 +1,9 @@
 package com.example.juanpa.proyecto;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +21,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +37,7 @@ public class IngresoCarreraSemestre extends AppCompatActivity {
     ArrayList<String> semestre = new ArrayList<String>();
     ArrayList<String> jornada = new ArrayList<String>();
     String grupo;
+    ArrayList<Materia> materias = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +59,8 @@ public class IngresoCarreraSemestre extends AppCompatActivity {
 
         ArrayList<String> array = new ArrayList<String>();
 
-        array.add("I.T");
-        array.add("C.S");
+        //array.add("I.T");
+        //array.add("C.S");
         array.add("I.S");
 
 
@@ -96,8 +105,60 @@ public class IngresoCarreraSemestre extends AppCompatActivity {
                     public void onResponse(String response) {
                         try {
                             Log.d("response", response);
+
+                            try {
+                                JSONArray array = new JSONArray(response);
+                                for (int i = 0; i < array.length(); i++) {
+                                    JSONObject o = array.getJSONObject(i);
+                                    Materia mat = new Materia(o.getString("NOMBRE"), o.getString("GRUPO"));
+                                    int dia = 0;
+                                    switch (o.getString("DIA")) {
+                                        case "Lunes":
+                                            dia = 0;
+                                            break;
+                                        case "Martes":
+                                            dia = 1;
+                                            break;
+                                        case "Miercoles":
+                                            dia = 2;
+                                            break;
+                                        case "Jueves":
+                                            dia = 3;
+                                            break;
+                                        case "Viernes":
+                                            dia = 4;
+                                            break;
+                                        case "Sabado":
+                                            dia = 5;
+                                            break;
+                                    }
+                                    int[] hora = {dia, o.getInt("HORA_INICIO"), o.getInt("HORA_FIN")};
+                                    boolean agregada = false;
+                                    for (Materia m : materias) {
+                                        if (m.getNombre().equals(mat.getNombre()) && m.getGrupo().equals(mat.getGrupo())) {
+                                            m.agregarHora(hora);
+                                            agregada = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!agregada) {
+                                        materias.add(mat);
+                                        mat.agregarHora(hora);
+                                    }
+                                }
+                                Log.d("status", "response parsed");
+                            } catch (Throwable t) {
+                            }
+
+                            //guardar la lista de materias
+                            SharedPreferences sharedPrefs = getSharedPreferences("prefs", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPrefs.edit();
+                            Gson gson = new Gson();
+                            String json = gson.toJson(materias);
+                            editor.putString("materias", json);
+                            editor.commit();
+
                             Intent intent = new Intent(IngresoCarreraSemestre.this, ProspectoHorario.class);
-                            intent.putExtra("response", response);
                             startActivity(intent);
                         } catch (Throwable t) {
                         }
