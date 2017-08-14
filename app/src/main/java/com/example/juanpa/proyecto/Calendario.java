@@ -43,17 +43,18 @@ public class Calendario extends RelativeLayout {
 
     Context context;
 
-    ArrayList<String> materias = new ArrayList();
+    ArrayList<Materia> materias;
 
     List<ObjetoCabecera> sampleObjects = this.sampleObjects();
 
     int headerCellsWidth[] = new int[headers.length];
 
-    public Calendario(Context context) {
+    public Calendario(Context context, ArrayList<Materia> materias) {
 
         super(context);
 
         this.context = context;
+        this.materias = materias;
 
         // initialize the main components (TableLayouts, HorizontalScrollView, ScrollView)
         this.initComponents();
@@ -85,6 +86,7 @@ public class Calendario extends RelativeLayout {
         this.generateTableC_AndTable_B();
 
         this.resizeBodyTableRowHeight();
+
     }
 
     // this is just the sample data
@@ -92,28 +94,8 @@ public class Calendario extends RelativeLayout {
 
         List<ObjetoCabecera> sampleObjects = new ArrayList<ObjetoCabecera>();
 
-        materias.add("Adsor");
-        materias.add("Ad bases");
-        materias.add("Moviles");
-        materias.add("Web");
-        materias.add("Directivas");
-        materias.add("Calidad");
-        materias.add("Ios");
-        materias.add("SW II");
-
-        for(int i=1; i < materias.size(); i++){
-
-            ObjetoCabecera sampleObject = new ObjetoCabecera(
-                    "\n\n" + materias.get(i).toString() + "\n\n",
-                    "" ,
-                    "" ,
-                    "" ,
-                    "" ,
-                    "" ,
-                    ""
-
-            );
-
+        for(Materia materia : materias){
+            ObjetoCabecera sampleObject = new ObjetoCabecera(materia);
             sampleObjects.add(sampleObject);
         }
 

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class IngresoCarreraSemestre extends AppCompatActivity {
 
-    Spinner spinner,spinnerSemestre,spinnerJornada;
+    Spinner spinner, spinnerSemestre, spinnerJornada;
     ArrayList<String> semestre = new ArrayList<String>();
     ArrayList<String> jornada = new ArrayList<String>();
 
@@ -44,8 +44,7 @@ public class IngresoCarreraSemestre extends AppCompatActivity {
         array.add("I.S");
 
 
-
-        ArrayAdapter adaptador = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, array);
+        ArrayAdapter adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, array);
         adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adaptador);
@@ -69,16 +68,17 @@ public class IngresoCarreraSemestre extends AppCompatActivity {
 
     }
 
-    public void actividadProspecto(View view){
+    public void actividadProspecto(View view) {
 
-        Intent intent = new Intent(this,ProspectoHorario.class);
-
+        Intent intent = new Intent(this, ProspectoHorario.class);
+        intent.putExtra("semestre", spinnerSemestre.getSelectedItemPosition() + 1);
+        intent.putExtra("jornada", spinnerJornada.getSelectedItem().toString());
         startActivity(intent);
 
     }
 
 
-    public void llenarSemestres(){
+    public void llenarSemestres() {
 
         semestre.add("Primero");
         semestre.add("Segundo");
@@ -91,14 +91,14 @@ public class IngresoCarreraSemestre extends AppCompatActivity {
 
         spinnerSemestre = (Spinner) findViewById(R.id.spinnerSemestre);
 
-        ArrayAdapter adaptadorSem = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,semestre);
+        ArrayAdapter adaptadorSem = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, semestre);
 
         spinnerSemestre.setAdapter(adaptadorSem);
 
 
     }
 
-    public void llenarHorarios(){
+    public void llenarHorarios() {
 
         jornada.add("Matutina");
         jornada.add("Vespertina");
@@ -106,14 +106,11 @@ public class IngresoCarreraSemestre extends AppCompatActivity {
 
         spinnerJornada = (Spinner) findViewById(R.id.spinnerJornada);
 
-        ArrayAdapter adaptadorHor = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,jornada);
+        ArrayAdapter adaptadorHor = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, jornada);
 
         spinnerJornada.setAdapter(adaptadorHor);
 
     }
-
-
-
 
 
 }
