@@ -10,14 +10,25 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class IngresoCarreraSemestre extends AppCompatActivity {
 
     Spinner spinner, spinnerSemestre, spinnerJornada;
     ArrayList<String> semestre = new ArrayList<String>();
     ArrayList<String> jornada = new ArrayList<String>();
+    String grupo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +81,42 @@ public class IngresoCarreraSemestre extends AppCompatActivity {
 
     public void actividadProspecto(View view) {
 
-        Intent intent = new Intent(this, ProspectoHorario.class);
-        intent.putExtra("semestre", spinnerSemestre.getSelectedItemPosition() + 1);
-        intent.putExtra("jornada", spinnerJornada.getSelectedItem().toString());
-        startActivity(intent);
+        if (spinnerJornada.getSelectedItem().toString().equals("Matutina")) {
+            grupo = "GR1";
+        } else {
+            grupo = "GR2";
+        }
+        Log.d("grupo",grupo);
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url2 = "http://10.0.2.2/horarios.php";
+        StringRequest jsRequest = new StringRequest
+                (Request.Method.POST, url2, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            Log.d("response", response);
+                            Intent intent = new Intent(IngresoCarreraSemestre.this, ProspectoHorario.class);
+                            intent.putExtra("response", response);
+                            startActivity(intent);
+                        } catch (Throwable t) {
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(IngresoCarreraSemestre.this, error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("semestre", String.valueOf(spinnerSemestre.getSelectedItemPosition() + 1));
+                params.put("jornada", grupo);
+                return params;
+            }
+        };
+        queue.add(jsRequest);
 
     }
 

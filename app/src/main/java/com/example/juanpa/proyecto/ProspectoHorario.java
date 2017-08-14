@@ -30,10 +30,55 @@ public class ProspectoHorario extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        int semestre = intent.getIntExtra("semestre", -1);
-        Log.d("semestre", String.valueOf(semestre));
-        String jornada = intent.getStringExtra("jornada");
+        String response = intent.getStringExtra("response");
+        Log.d("response:", response);
         materias = new ArrayList<>();
+
+        try {
+            JSONArray array = new JSONArray(response);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject o = array.getJSONObject(i);
+                Materia mat = new Materia(o.getString("NOMBRE"), o.getString("GRUPO"));
+                int dia = 0;
+                switch (o.getString("DIA")) {
+                    case "Lunes":
+                        dia = 0;
+                        break;
+                    case "Martes":
+                        dia = 1;
+                        break;
+                    case "Miercoles":
+                        dia = 2;
+                        break;
+                    case "Jueves":
+                        dia = 3;
+                        break;
+                    case "Viernes":
+                        dia = 4;
+                        break;
+                    case "Sabado":
+                        dia = 5;
+                        break;
+                }
+                int[] hora = {dia, o.getInt("HORA_INICIO"), o.getInt("HORA_FIN")};
+                boolean agregada = false;
+                for (Materia m : materias) {
+                    if (m.getNombre().equals(mat.getNombre()) && m.getGrupo().equals(mat.getGrupo())) {
+                        m.agregarHora(hora);
+                        agregada = true;
+                        break;
+                    }
+                }
+                if (!agregada) {
+                    materias.add(mat);
+                    mat.agregarHora(hora);
+                }
+            }
+            Log.d("status", "response parsed");
+        } catch (Throwable t) {
+        }
+
+        /*
         obtenerMaterias(semestre, jornada, new Callback() {
             @Override
             public void onSuccess(String response) {
@@ -77,9 +122,11 @@ public class ProspectoHorario extends Activity {
                 }
             }
         });
-        setContentView(new Calendario(this, materias));
+        */
+        setContentView(new Calendario(ProspectoHorario.this, this.materias));
     }
 
+    /*
     public void obtenerMaterias(final int semestre, String jornada, final Callback callback) {
         if (jornada.equals("Matutina")) {
             grupo = "GR1";
@@ -115,4 +162,5 @@ public class ProspectoHorario extends Activity {
         };
         queue.add(jsRequest);
     }
+    */
 }

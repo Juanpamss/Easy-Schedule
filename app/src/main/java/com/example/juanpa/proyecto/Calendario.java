@@ -45,7 +45,7 @@ public class Calendario extends RelativeLayout {
 
     ArrayList<Materia> materias;
 
-    List<ObjetoCabecera> sampleObjects = this.sampleObjects();
+    List<ObjetoCabecera> sampleObjects;
 
     int headerCellsWidth[] = new int[headers.length];
 
@@ -55,6 +55,8 @@ public class Calendario extends RelativeLayout {
 
         this.context = context;
         this.materias = materias;
+
+        sampleObjects = this.sampleObjects();
 
         // initialize the main components (TableLayouts, HorizontalScrollView, ScrollView)
         this.initComponents();
@@ -77,7 +79,7 @@ public class Calendario extends RelativeLayout {
 
         // add some table rows
         this.addTableRowToTableA();
-        this. addTableRowToTableB();
+        this.addTableRowToTableB();
 
         this.resizeHeaderHeight();
 
@@ -90,11 +92,11 @@ public class Calendario extends RelativeLayout {
     }
 
     // this is just the sample data
-    List<ObjetoCabecera> sampleObjects(){
+    List<ObjetoCabecera> sampleObjects() {
 
         List<ObjetoCabecera> sampleObjects = new ArrayList<ObjetoCabecera>();
 
-        for(Materia materia : materias){
+        for (Materia materia : materias) {
             ObjetoCabecera sampleObject = new ObjetoCabecera(materia);
             sampleObjects.add(sampleObject);
         }
@@ -104,7 +106,7 @@ public class Calendario extends RelativeLayout {
     }
 
     // initalized components
-    private void initComponents(){
+    private void initComponents() {
 
         this.tableA = new TableLayout(this.context);
         this.tableB = new TableLayout(this.context);
@@ -123,7 +125,7 @@ public class Calendario extends RelativeLayout {
     }
 
     // set essential component IDs
-    private void setComponentsId(){
+    private void setComponentsId() {
         this.tableA.setId('1');
         this.horizontalScrollViewB.setId('2');
         this.scrollViewC.setId('3');
@@ -131,7 +133,7 @@ public class Calendario extends RelativeLayout {
     }
 
     // set tags for some horizontal and vertical scroll view
-    private void setScrollViewAndHorizontalScrollViewTag(){
+    private void setScrollViewAndHorizontalScrollViewTag() {
 
         this.horizontalScrollViewB.setTag("horizontal scroll view b");
         this.horizontalScrollViewD.setTag("horizontal scroll view d");
@@ -141,17 +143,17 @@ public class Calendario extends RelativeLayout {
     }
 
     // we add the components here in our TableMainLayout
-    private void addComponentToMainLayout(){
+    private void addComponentToMainLayout() {
 
         // RelativeLayout params were very useful here
         // the addRule method is the key to arrange the components properly
-        RelativeLayout.LayoutParams componentB_Params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams componentB_Params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         componentB_Params.addRule(RelativeLayout.RIGHT_OF, this.tableA.getId());
 
-        RelativeLayout.LayoutParams componentC_Params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams componentC_Params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         componentC_Params.addRule(RelativeLayout.BELOW, this.tableA.getId());
 
-        RelativeLayout.LayoutParams componentD_Params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams componentD_Params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         componentD_Params.addRule(RelativeLayout.RIGHT_OF, this.scrollViewC.getId());
         componentD_Params.addRule(RelativeLayout.BELOW, this.horizontalScrollViewB.getId());
 
@@ -165,17 +167,16 @@ public class Calendario extends RelativeLayout {
     }
 
 
-
-    private void addTableRowToTableA(){
+    private void addTableRowToTableA() {
         this.tableA.addView(this.componentATableRow());
     }
 
-    private void addTableRowToTableB(){
+    private void addTableRowToTableB() {
         this.tableB.addView(this.componentBTableRow());
     }
 
     // generate table row of table A
-    TableRow componentATableRow(){
+    TableRow componentATableRow() {
 
         TableRow componentATableRow = new TableRow(this.context);
         TextView textView = this.headerTextView(this.headers[0]);
@@ -185,16 +186,16 @@ public class Calendario extends RelativeLayout {
     }
 
     // generate table row of table B
-    TableRow componentBTableRow(){
+    TableRow componentBTableRow() {
 
         TableRow componentBTableRow = new TableRow(this.context);
         int headerFieldCount = this.headers.length;
 
-        TableRow.LayoutParams params = new TableRow.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.MATCH_PARENT);
+        TableRow.LayoutParams params = new TableRow.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
         params.setMargins(2, 0, 0, 0);
 
-        for(int x=0; x<(headerFieldCount-1); x++){
-            TextView textView = this.headerTextView(this.headers[x+1]);
+        for (int x = 0; x < (headerFieldCount - 1); x++) {
+            TextView textView = this.headerTextView(this.headers[x + 1]);
             textView.setLayoutParams(params);
             componentBTableRow.addView(textView);
         }
@@ -203,14 +204,14 @@ public class Calendario extends RelativeLayout {
     }
 
     // generate table row of table C and table D
-    private void generateTableC_AndTable_B(){
+    private void generateTableC_AndTable_B() {
 
         // just seeing some header cell width
-        for(int x=0; x<this.headerCellsWidth.length; x++){
-            Log.v("TableMainLayout.java", this.headerCellsWidth[x]+"");
+        for (int x = 0; x < this.headerCellsWidth.length; x++) {
+            Log.v("TableMainLayout.java", this.headerCellsWidth[x] + "");
         }
 
-        for(ObjetoCabecera sampleObject : this.sampleObjects){
+        for (ObjetoCabecera sampleObject : this.sampleObjects) {
 
             TableRow tableRowForTableC = this.tableRowForTableC(sampleObject);
             TableRow taleRowForTableD = this.taleRowForTableD(sampleObject);
@@ -225,23 +226,23 @@ public class Calendario extends RelativeLayout {
     }
 
     // a TableRow for table C
-    TableRow tableRowForTableC(ObjetoCabecera sampleObject){
+    TableRow tableRowForTableC(ObjetoCabecera sampleObject) {
 
-        TableRow.LayoutParams params = new TableRow.LayoutParams( this.headerCellsWidth[0],LayoutParams.MATCH_PARENT);
+        TableRow.LayoutParams params = new TableRow.LayoutParams(this.headerCellsWidth[0], LayoutParams.MATCH_PARENT);
         params.setMargins(0, 2, 0, 0);
 
         TableRow tableRowForTableC = new TableRow(this.context);
         TextView textView = this.bodyTextView(sampleObject.header1);
-        tableRowForTableC.addView(textView,params);
+        tableRowForTableC.addView(textView, params);
 
         return tableRowForTableC;
     }
 
-    TableRow taleRowForTableD(ObjetoCabecera sampleObject){
+    TableRow taleRowForTableD(ObjetoCabecera sampleObject) {
 
         TableRow taleRowForTableD = new TableRow(this.context);
 
-        int loopCount = ((TableRow)this.tableB.getChildAt(0)).getChildCount();
+        int loopCount = ((TableRow) this.tableB.getChildAt(0)).getChildCount();
         String info[] = {
                 sampleObject.header2,
                 sampleObject.header3,
@@ -252,12 +253,12 @@ public class Calendario extends RelativeLayout {
 
         };
 
-        for(int x=0 ; x<loopCount; x++){
-            TableRow.LayoutParams params = new TableRow.LayoutParams( headerCellsWidth[x+1],LayoutParams.MATCH_PARENT);
+        for (int x = 0; x < loopCount; x++) {
+            TableRow.LayoutParams params = new TableRow.LayoutParams(headerCellsWidth[x + 1], LayoutParams.MATCH_PARENT);
             params.setMargins(2, 2, 0, 0);
 
             TextView textViewB = this.bodyTextView(info[x]);
-            taleRowForTableD.addView(textViewB,params);
+            taleRowForTableD.addView(textViewB, params);
         }
 
         return taleRowForTableD;
@@ -265,7 +266,7 @@ public class Calendario extends RelativeLayout {
     }
 
     // table cell standard TextView
-    TextView bodyTextView(String label){
+    TextView bodyTextView(String label) {
 
         TextView bodyTextView = new TextView(this.context);
         bodyTextView.setBackgroundColor(Color.WHITE);
@@ -277,7 +278,7 @@ public class Calendario extends RelativeLayout {
     }
 
     // header standard TextView
-    TextView headerTextView(String label){
+    TextView headerTextView(String label) {
 
         TextView headerTextView = new TextView(this.context);
         headerTextView.setBackgroundColor(Color.WHITE);
@@ -292,7 +293,7 @@ public class Calendario extends RelativeLayout {
     void resizeHeaderHeight() {
 
         TableRow productNameHeaderTableRow = (TableRow) this.tableA.getChildAt(0);
-        TableRow productInfoTableRow = (TableRow)  this.tableB.getChildAt(0);
+        TableRow productInfoTableRow = (TableRow) this.tableB.getChildAt(0);
 
         int rowAHeight = this.viewHeight(productNameHeaderTableRow);
         int rowBHeight = this.viewHeight(productInfoTableRow);
@@ -303,31 +304,32 @@ public class Calendario extends RelativeLayout {
         this.matchLayoutHeight(tableRow, finalHeight);
     }
 
-    void getTableRowHeaderCellWidth(){
+    void getTableRowHeaderCellWidth() {
 
-        int tableAChildCount = ((TableRow)this.tableA.getChildAt(0)).getChildCount();
-        int tableBChildCount = ((TableRow)this.tableB.getChildAt(0)).getChildCount();;
+        int tableAChildCount = ((TableRow) this.tableA.getChildAt(0)).getChildCount();
+        int tableBChildCount = ((TableRow) this.tableB.getChildAt(0)).getChildCount();
+        ;
 
-        for(int x=0; x<(tableAChildCount+tableBChildCount); x++){
+        for (int x = 0; x < (tableAChildCount + tableBChildCount); x++) {
 
-            if(x==0){
-                this.headerCellsWidth[x] = this.viewWidth(((TableRow)this.tableA.getChildAt(0)).getChildAt(x));
-            }else{
-                this.headerCellsWidth[x] = this.viewWidth(((TableRow)this.tableB.getChildAt(0)).getChildAt(x-1));
+            if (x == 0) {
+                this.headerCellsWidth[x] = this.viewWidth(((TableRow) this.tableA.getChildAt(0)).getChildAt(x));
+            } else {
+                this.headerCellsWidth[x] = this.viewWidth(((TableRow) this.tableB.getChildAt(0)).getChildAt(x - 1));
             }
 
         }
     }
 
     // resize body table row height
-    void resizeBodyTableRowHeight(){
+    void resizeBodyTableRowHeight() {
 
         int tableC_ChildCount = this.tableC.getChildCount();
 
-        for(int x=0; x<tableC_ChildCount; x++){
+        for (int x = 0; x < tableC_ChildCount; x++) {
 
             TableRow productNameHeaderTableRow = (TableRow) this.tableC.getChildAt(x);
-            TableRow productInfoTableRow = (TableRow)  this.tableD.getChildAt(x);
+            TableRow productInfoTableRow = (TableRow) this.tableD.getChildAt(x);
 
             int rowAHeight = this.viewHeight(productNameHeaderTableRow);
             int rowBHeight = this.viewHeight(productInfoTableRow);
@@ -347,13 +349,13 @@ public class Calendario extends RelativeLayout {
         int tableRowChildCount = tableRow.getChildCount();
 
         // if a TableRow has only 1 child
-        if(tableRow.getChildCount()==1){
+        if (tableRow.getChildCount() == 1) {
 
             View view = tableRow.getChildAt(0);
             TableRow.LayoutParams params = (TableRow.LayoutParams) view.getLayoutParams();
             params.height = height - (params.bottomMargin + params.topMargin);
 
-            return ;
+            return;
         }
 
         // if a TableRow has more than 1 child
@@ -404,7 +406,7 @@ public class Calendario extends RelativeLayout {
     }
 
     // horizontal scroll view custom class
-    class MyHorizontalScrollView extends HorizontalScrollView{
+    class MyHorizontalScrollView extends HorizontalScrollView {
 
         public MyHorizontalScrollView(Context context) {
             super(context);
@@ -414,9 +416,9 @@ public class Calendario extends RelativeLayout {
         protected void onScrollChanged(int l, int t, int oldl, int oldt) {
             String tag = (String) this.getTag();
 
-            if(tag.equalsIgnoreCase("horizontal scroll view b")){
+            if (tag.equalsIgnoreCase("horizontal scroll view b")) {
                 horizontalScrollViewD.scrollTo(l, 0);
-            }else{
+            } else {
                 horizontalScrollViewB.scrollTo(l, 0);
             }
         }
@@ -424,7 +426,7 @@ public class Calendario extends RelativeLayout {
     }
 
     // scroll view custom class
-    class MyScrollView extends ScrollView{
+    class MyScrollView extends ScrollView {
 
         public MyScrollView(Context context) {
             super(context);
@@ -435,10 +437,10 @@ public class Calendario extends RelativeLayout {
 
             String tag = (String) this.getTag();
 
-            if(tag.equalsIgnoreCase("scroll view c")){
+            if (tag.equalsIgnoreCase("scroll view c")) {
                 scrollViewD.scrollTo(0, t);
-            }else{
-                scrollViewC.scrollTo(0,t);
+            } else {
+                scrollViewC.scrollTo(0, t);
             }
         }
     }
