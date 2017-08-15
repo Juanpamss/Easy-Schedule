@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">Proyecto</string>
-    <string name="btn_crearHorario">Crear nuevo horario</string>
-    <string name="btn_consultarHorario">Consultar horario</string>
+    <string name="btn_crearHorario">Ver horarios disponibles</string>
+    <string name="btn_consultarHorario">Ver horario guardado</string>
     <string name="txt_IngresoCarrera">Carrera</string>
     <string name="txt_IngresoSemestre">Semestre</string>
     <string name="btn_Continuar">Continuar</string>
+    <string name="btn_listaHorario">Crear un horario</string>
+    <string name="btn_agregarMateria">Agregar materia</string>
+    <string name="btn_generarHorario">Generar horario</string>
+    <string name="txt_listaMaterias">Lista de Materias</string>
+    <string name="txt_seleccionarMateria">Buscar materias</string>
+    <string name="btn_guardar">Guardar horario</string>
 </resources>

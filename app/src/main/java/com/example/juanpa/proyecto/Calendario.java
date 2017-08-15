@@ -92,6 +92,7 @@ public class Calendario extends RelativeLayout {
 
         this.resizeBodyTableRowHeight();
 
+        /*
         //guardar la lista de materias
         SharedPreferences sharedPrefs = context.getSharedPreferences("prefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
@@ -101,6 +102,7 @@ public class Calendario extends RelativeLayout {
 
         editor.putString("materias", json);
         editor.commit();
+        */
 
     }
 

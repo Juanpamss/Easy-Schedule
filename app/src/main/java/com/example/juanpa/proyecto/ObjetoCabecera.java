@@ -15,7 +15,7 @@ public class ObjetoCabecera {
 
     public ObjetoCabecera(Materia materia){
 
-        this.header1 = "\n" + materia.getNombre() + "\n";
+        this.header1 = "\n" + materia.getNombre() + "\n" + materia.getGrupo() + "\n";
         for(int[] hora : materia.getHoras()){
             switch (hora[0]) {
                 case 0:

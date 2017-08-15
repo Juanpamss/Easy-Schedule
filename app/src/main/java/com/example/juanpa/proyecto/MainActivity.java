@@ -27,4 +27,9 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(intent);
     }
+
+    public void activityGenerarHorario(View view){
+        Intent intent = new Intent(this, GenerarHorarioActivity.class);
+        startActivity(intent);
+    }
 }
